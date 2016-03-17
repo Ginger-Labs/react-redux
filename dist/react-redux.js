@@ -511,7 +511,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // inject us some themify!
 	    var themeProperties = {
-	      theme: _react.PropTypes.any.isRequired
+	      theme: _react.PropTypes.any
 	    };
 	    if (Connect.contextTypes === null || Connect.contextTypes === undefined) {
 	      Connect.contextTypes = {};

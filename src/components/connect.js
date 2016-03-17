@@ -313,7 +313,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
     // inject us some themify!
     const themeProperties = {
-      theme: PropTypes.any.isRequired
+      theme: PropTypes.any
     };
     if ( Connect.contextTypes === null || Connect.contextTypes === undefined) {
       Connect.contextTypes = {};
