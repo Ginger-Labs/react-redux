@@ -185,6 +185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
+	exports.customContextTypes = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -248,7 +249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// defines custom context to listen for an ensure that shouldComponentUpdate
 	// returns true when they are changed in the next context
-	var customContextTypes = {};
+	var customContextTypes = exports.customContextTypes = {};
 
 	function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
 	  var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];

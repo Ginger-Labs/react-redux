@@ -33,7 +33,7 @@ let nextVersion = 0
 
 // defines custom context to listen for an ensure that shouldComponentUpdate
 // returns true when they are changed in the next context
-let customContextTypes = {};
+export let customContextTypes = {};
 
 export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = {}) {
   const shouldSubscribe = Boolean(mapStateToProps)
