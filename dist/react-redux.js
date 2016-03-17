@@ -247,6 +247,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Helps track hot reloading.
 	var nextVersion = 0;
 
+	// defines custom context to listen for an ensure that shouldComponentUpdate
+	// returns true when they are changed in the next context
+	var customContextTypes = {};
+
 	function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
 	  var options = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
 
@@ -410,6 +414,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.mergedProps = null;
 	        this.haveOwnPropsChanged = true;
 	        this.hasStoreStateChanged = true;
+	        this.hasContextChanged = true;
 	        this.renderedElement = null;
 	        this.finalMapDispatchToProps = null;
 	        this.finalMapStateToProps = null;
@@ -492,6 +497,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Connect.contextTypes = {
 	      store: _storeShape2["default"]
 	    };
+	    if (customContextTypes) {
+	      // add any custom context types to the default redux context types
+	      // (which just includes the store)
+	      Object.assign(Connect.contextTypes, customContextTypes);
+	    }
 	    Connect.propTypes = {
 	      store: _storeShape2["default"]
 	    };
@@ -508,16 +518,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.clearCache();
 	      };
 	    }
-
-	    // inject us some themify!
-	    var themeProperties = {
-	      theme: _react.PropTypes.any
-	    };
-	    if (Connect.contextTypes === null || Connect.contextTypes === undefined) {
-	      Connect.contextTypes = {};
-	    }
-	    Object.assign(Connect.contextTypes, themeProperties); // inject the theme context types into any existing context types
-
 	    return (0, _hoistNonReactStatics2["default"])(Connect, WrappedComponent);
 	  };
 	}

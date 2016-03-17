@@ -31,6 +31,10 @@ function checkStateShape(stateProps, dispatch) {
 // Helps track hot reloading.
 let nextVersion = 0
 
+// defines custom context to listen for an ensure that shouldComponentUpdate
+// returns true when they are changed in the next context
+let customContextTypes = {};
+
 export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = {}) {
   const shouldSubscribe = Boolean(mapStateToProps)
   const mapState = mapStateToProps || defaultMapStateToProps
@@ -200,6 +204,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
         this.mergedProps = null
         this.haveOwnPropsChanged = true
         this.hasStoreStateChanged = true
+        this.hasContextChanged = true
         this.renderedElement = null
         this.finalMapDispatchToProps = null
         this.finalMapStateToProps = null
@@ -294,6 +299,11 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
     Connect.contextTypes = {
       store: storeShape
     }
+    if (customContextTypes) {
+      // add any custom context types to the default redux context types
+      // (which just includes the store)
+      Object.assign(Connect.contextTypes, customContextTypes);
+    }
     Connect.propTypes = {
       store: storeShape
     }
@@ -310,16 +320,6 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
         this.clearCache()
       }
     }
-
-    // inject us some themify!
-    const themeProperties = {
-      theme: PropTypes.any
-    };
-    if ( Connect.contextTypes === null || Connect.contextTypes === undefined) {
-      Connect.contextTypes = {};
-    }
-    Object.assign(Connect.contextTypes, themeProperties); // inject the theme context types into any existing context types
-
     return hoistStatics(Connect, WrappedComponent)
   }
 }
