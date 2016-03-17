@@ -35,7 +35,7 @@ let nextVersion = 0
 // returns true when they are changed in the next context
 export let customContextTypes = {};
 
-export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = {}) {
+export function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = {}) {
   const shouldSubscribe = Boolean(mapStateToProps)
   const mapState = mapStateToProps || defaultMapStateToProps
   const mapDispatch = isPlainObject(mapDispatchToProps) ?
@@ -323,3 +323,5 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
     return hoistStatics(Connect, WrappedComponent)
   }
 }
+
+export default connect;
