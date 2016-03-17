@@ -311,6 +311,15 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
       }
     }
 
+    // inject us some themify!
+    const themeProperties = {
+      theme: PropTypes.any.isRequired
+    };
+    if ( Connect.contextTypes === null || Connect.contextTypes === undefined) {
+      Connect.contextTypes = {};
+    }
+    Object.assign(Connect.contextTypes, themeProperties); // inject the theme context types into any existing context types
+
     return hoistStatics(Connect, WrappedComponent)
   }
 }

@@ -509,6 +509,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	    }
 
+	    // inject us some themify!
+	    var themeProperties = {
+	      theme: PropTypes.any.isRequired
+	    };
+	    if (Connect.contextTypes === null || Connect.contextTypes === undefined) {
+	      Connect.contextTypes = {};
+	    }
+	    Object.assign(Connect.contextTypes, themeProperties); // inject the theme context types into any existing context types
+
 	    return (0, _hoistNonReactStatics2["default"])(Connect, WrappedComponent);
 	  };
 	}
