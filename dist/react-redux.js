@@ -57,7 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	exports.__esModule = true;
-	exports.connect = exports.Provider = undefined;
+	exports.customContextTypes = exports.connect = exports.Provider = undefined;
 
 	var _Provider = __webpack_require__(3);
 
@@ -65,12 +65,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _connect = __webpack_require__(4);
 
-	var _connect2 = _interopRequireDefault(_connect);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	exports.Provider = _Provider2["default"];
-	exports.connect = _connect2["default"];
+	exports.connect = _connect.connect;
+	exports.customContextTypes = _connect.customContextTypes;
 
 /***/ },
 /* 1 */
