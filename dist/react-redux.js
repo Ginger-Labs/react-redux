@@ -275,8 +275,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var Connect = function (_Component) {
 	      _inherits(Connect, _Component);
 
-	      Connect.prototype.shouldComponentUpdate = function shouldComponentUpdate() {
-	        return !pure || this.haveOwnPropsChanged || this.hasStoreStateChanged;
+	      Connect.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState, nextContext) {
+	        if (this.context) {
+	          this.hasContextChanged = !(0, _shallowEqual2["default"])(nextContext, this.context);
+	        }
+	        return !pure || this.haveOwnPropsChanged || this.hasStoreStateChanged || this.hasContextChanged;
 	      };
 
 	      function Connect(props, context) {
@@ -435,11 +438,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      Connect.prototype.render = function render() {
 	        var haveOwnPropsChanged = this.haveOwnPropsChanged;
 	        var hasStoreStateChanged = this.hasStoreStateChanged;
+	        var hasContextChanged = this.hasContextChanged;
 	        var renderedElement = this.renderedElement;
 
 
 	        this.haveOwnPropsChanged = false;
 	        this.hasStoreStateChanged = false;
+	        this.hasContextChanged = false;
 
 	        var shouldUpdateStateProps = true;
 	        var shouldUpdateDispatchProps = true;
@@ -464,7 +469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          haveMergedPropsChanged = false;
 	        }
 
-	        if (!haveMergedPropsChanged && renderedElement) {
+	        if (!haveMergedPropsChanged && !hasContextChanged && renderedElement) {
 	          return renderedElement;
 	        }
 

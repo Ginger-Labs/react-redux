@@ -57,8 +57,11 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
 
   return function wrapWithConnect(WrappedComponent) {
     class Connect extends Component {
-      shouldComponentUpdate() {
-        return !pure || this.haveOwnPropsChanged || this.hasStoreStateChanged
+      shouldComponentUpdate(nextProps, nextState, nextContext) {
+        if ( this.context ) {
+          this.hasContextChanged = !shallowEqual(nextContext, this.context);
+        }
+        return !pure || this.haveOwnPropsChanged || this.hasStoreStateChanged || this.hasContextChanged;
       }
 
       constructor(props, context) {
@@ -229,11 +232,13 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
         const {
           haveOwnPropsChanged,
           hasStoreStateChanged,
+          hasContextChanged,
           renderedElement
         } = this
 
         this.haveOwnPropsChanged = false
         this.hasStoreStateChanged = false
+        this.hasContextChanged = false;
 
         let shouldUpdateStateProps = true
         let shouldUpdateDispatchProps = true
@@ -265,7 +270,7 @@ export default function connect(mapStateToProps, mapDispatchToProps, mergeProps,
           haveMergedPropsChanged = false
         }
 
-        if (!haveMergedPropsChanged && renderedElement) {
+        if (!haveMergedPropsChanged && !hasContextChanged && renderedElement) {
           return renderedElement
         }
 
